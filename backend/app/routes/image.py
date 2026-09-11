@@ -1,7 +1,8 @@
 from fastapi import APIRouter, HTTPException
+
+from ..config import IMAGE_MODELS
 from ..models.schemas import ImageRequest, ImageResponse
 from ..services.pollinations import generate_image
-from ..config import IMAGE_MODELS
 
 router = APIRouter(prefix="/api/image", tags=["image"])
 
@@ -25,5 +26,5 @@ async def create_image(req: ImageRequest):
         return ImageResponse(**result)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Image generation failed: {str(e)}")
+    except (OSError, RuntimeError) as e:
+        raise HTTPException(status_code=500, detail=f"Image generation failed: {e!s}")

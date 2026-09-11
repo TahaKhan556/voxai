@@ -1,7 +1,7 @@
-import httpx
 import random
 import time
 
+import httpx
 
 LEGACY_BASE = "https://gen.pollinations.ai/image"
 

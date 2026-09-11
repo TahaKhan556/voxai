@@ -57,3 +57,6 @@ next-env.d.ts
 coverage/
 *.pem
 .vercel
+backend/app/static/audio/
+frontend/AGENTS.md
+frontend/CLAUDE.md

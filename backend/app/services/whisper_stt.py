@@ -1,6 +1,6 @@
-import os
 from faster_whisper import WhisperModel
-from ..config import WHISPER_MODEL, WHISPER_DEVICE, WHISPER_COMPUTE_TYPE
+
+from ..config import WHISPER_COMPUTE_TYPE, WHISPER_DEVICE, WHISPER_MODEL
 
 _model = None
 

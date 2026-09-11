@@ -1,5 +1,7 @@
 import re
+
 import httpx
+
 from ..config import MIMO_API_KEY, MIMO_BASE_URL, MIMO_MODEL
 
 

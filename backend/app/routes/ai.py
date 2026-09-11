@@ -1,10 +1,14 @@
 from fastapi import APIRouter, HTTPException
+
 from ..models.schemas import (
-    RefinePromptRequest, RefinePromptResponse,
-    GenerateScriptRequest, GenerateScriptResponse,
-    ChatRequest, ChatResponse,
+    ChatRequest,
+    ChatResponse,
+    GenerateScriptRequest,
+    GenerateScriptResponse,
+    RefinePromptRequest,
+    RefinePromptResponse,
 )
-from ..services.mimo_ai import refine_image_prompt, generate_voice_script, chat
+from ..services.mimo_ai import chat, generate_voice_script, refine_image_prompt
 
 router = APIRouter(prefix="/api/ai", tags=["ai"])
 
@@ -17,8 +21,8 @@ async def chat_endpoint(req: ChatRequest):
         return ChatResponse(reply=reply)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Chat failed: {str(e)}")
+    except (OSError, RuntimeError) as e:
+        raise HTTPException(status_code=500, detail=f"Chat failed: {e!s}")
 
 
 @router.post("/refine-prompt", response_model=RefinePromptResponse)
@@ -31,8 +35,8 @@ async def enhance_prompt(req: RefinePromptRequest):
         )
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Prompt refinement failed: {str(e)}")
+    except (OSError, RuntimeError) as e:
+        raise HTTPException(status_code=500, detail=f"Prompt refinement failed: {e!s}")
 
 
 @router.post("/generate-script", response_model=GenerateScriptResponse)
@@ -46,5 +50,5 @@ async def create_script(req: GenerateScriptRequest):
         return GenerateScriptResponse(**result)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Script generation failed: {str(e)}")
+    except (OSError, RuntimeError) as e:
+        raise HTTPException(status_code=500, detail=f"Script generation failed: {e!s}")

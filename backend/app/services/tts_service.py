@@ -1,9 +1,9 @@
-import os
-import uuid
-import re
 import asyncio
-from ..config import AUDIO_DIR
+import os
+import re
+import uuid
 
+from ..config import AUDIO_DIR
 
 KOKORO_VOICES = {
     "af_heart": {"name": "Heart", "gender": "female", "locale": "en-US", "friendly_name": "Heart (Female, Warm)"},
@@ -142,6 +142,5 @@ def cleanup_old_audio(max_age_seconds: int = 3600):
         return
     for f in os.listdir(AUDIO_DIR):
         filepath = os.path.join(AUDIO_DIR, f)
-        if os.path.isfile(filepath):
-            if now - os.path.getmtime(filepath) > max_age_seconds:
-                os.remove(filepath)
+        if os.path.isfile(filepath) and now - os.path.getmtime(filepath) > max_age_seconds:
+            os.remove(filepath)

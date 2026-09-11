@@ -1,15 +1,18 @@
-from contextlib import asynccontextmanager
 import asyncio
+import logging
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-import os
 
+from .config import AUDIO_DIR
+from .routes.ai import router as ai_router
 from .routes.image import router as image_router
 from .routes.voice import router as voice_router
-from .routes.ai import router as ai_router
-from .config import AUDIO_DIR
 from .services.tts_service import cleanup_old_audio
+
+logger = logging.getLogger("voxai")
 
 
 @asynccontextmanager
@@ -19,8 +22,8 @@ async def lifespan(app: FastAPI):
             await asyncio.sleep(3600)
             try:
                 cleanup_old_audio()
-            except Exception:
-                pass
+            except OSError:
+                logger.exception("Audio cleanup failed")
     task = asyncio.create_task(periodic_cleanup())
     yield
     task.cancel()
