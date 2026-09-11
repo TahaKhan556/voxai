@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+  --color-bg: #0a1628;
+  --color-bg2: #0d1d33;
+  --color-surface: #12233d;
+  --color-surface2: #172b4a;
+  --color-surface3: #1c3358;
+  --color-border: rgba(148, 163, 184, 0.12);
+  --color-border2: rgba(148, 163, 184, 0.22);
+  --color-text: #e2e8f0;
+  --color-muted: #7a8ba8;
+  --color-faint: #4a5d7a;
+  --color-accent: #06b6d4;
+  --color-accent-h: #0891b2;
+  --color-accent-soft: rgba(6, 182, 212, 0.15);
+  --color-accent2: #8b5cf6;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-code: #0d1d33;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  height: 100vh;
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(100, 130, 180, 0.2); border-radius: 6px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(100, 130, 180, 0.35); }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { 0%, 100% { opacity: 0.7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.05); } }
+@keyframes dotBlink { 0%, 80%, 100% { opacity: 0.25; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-4px); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes blobFloat { 0%, 100% { transform: translate(0, 0) scale(1); } 25% { transform: translate(30px, -50px) scale(1.1); } 50% { transform: translate(-20px, 20px) scale(0.95); } 75% { transform: translate(40px, 30px) scale(1.05); } }
+@keyframes blobFloat2 { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(-40px, 30px) scale(1.1); } 66% { transform: translate(30px, -40px) scale(0.9); } }

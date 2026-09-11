@@ -1,0 +1,59 @@
+# Dependencies
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+
+# Environment files
+.env
+.env.local
+.env.production
+.env.development
+.env*.local
+
+# Next.js
+.next/
+out/
+build/
+
+# Python
+*.pyc
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# Audio files (generated at runtime)
+static/audio/*.mp3
+static/audio/*.wav
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Misc
+coverage/
+*.pem
+.vercel

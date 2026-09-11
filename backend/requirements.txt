@@ -1,0 +1,11 @@
+fastapi==0.115.0
+uvicorn[standard]==0.30.0
+python-multipart==0.0.9
+kokoro==0.9.4
+soundfile==0.12.1
+numpy
+faster-whisper==1.1.0
+httpx==0.27.0
+requests==2.32.3
+pydantic==2.9.0
+python-dotenv==1.0.1

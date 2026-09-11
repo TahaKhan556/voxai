@@ -1,0 +1,52 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install backend deps
+        run: pip install -r backend/requirements.txt
+
+      - name: Install frontend deps
+        run: npm ci
+        working-directory: ./frontend
+
+      - name: Frontend typecheck
+        run: npx tsc --noEmit
+        working-directory: ./frontend
+
+      - name: Backend lint (basic)
+        run: python3 -m py_compile backend/app/main.py
+
+      - name: Lint backend
+        run: pip install ruff && ruff check backend/app/
+
+  deploy:
+    needs: lint-and-test
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger deploy on server
+        run: |
+          curl -s -X POST http://localhost:9876 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_SECRET }}" \
+            -H "Content-Type: application/json" \
+            -d '{"ref": "${{ github.ref }}", "commit": "${{ github.sha }}", "repo": "voxai"}'
