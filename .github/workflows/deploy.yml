@@ -46,7 +46,7 @@ jobs:
     steps:
       - name: Trigger deploy on server
         run: |
-          curl -s -X POST http://localhost:9876 \
+          curl -s -X POST http://23.94.206.104:9878 \
             -H "X-Deploy-Token: ${{ secrets.DEPLOY_SECRET }}" \
             -H "Content-Type: application/json" \
             -d '{"ref": "${{ github.ref }}", "commit": "${{ github.sha }}", "repo": "voxai"}'
